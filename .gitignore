@@ -22,6 +22,12 @@ lerna-debug.log*
 .env.local
 .env.*.local
 
+# Configuration files with secrets
+MCP_CONFIG.md
+*.config.json
+*_secrets.*
+*_tokens.*
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
