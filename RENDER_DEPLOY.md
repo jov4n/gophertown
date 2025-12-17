@@ -49,7 +49,7 @@ Your repository should already be set up correctly. Make sure:
    - **Root Directory**: Leave empty (uses root)
    - **Build Command**: 
      ```
-     npm install && npm run build && cd server && npm install
+     npm install --include=dev && npm run build && cd server && npm install
      ```
    - **Start Command**: 
      ```

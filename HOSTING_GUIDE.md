@@ -15,7 +15,7 @@ Here are the best free options for hosting your WebSocket server:
   2. Click "New +" → "Web Service"
   3. Connect your GitHub repo
   4. Set:
-     - **Build Command**: `npm install && npm run build && cd server && npm install`
+     - **Build Command**: `npm install --include=dev && npm run build && cd server && npm install`
      - **Start Command**: `cd server && node server.js`
      - **Environment**: Node
      - **Plan**: Free

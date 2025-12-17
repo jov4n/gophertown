@@ -3,11 +3,9 @@ services:
     name: townsbuilder-social
     env: node
     plan: free
-    buildCommand: npm install && npm run build && cd server && npm install
+    buildCommand: npm install --include=dev && npm run build && cd server && npm install
     startCommand: cd server && node server.js
     envVars:
-      - key: NODE_ENV
-        value: production
       - key: PORT
         generateValue: true
     healthCheckPath: /
