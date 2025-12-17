@@ -4,7 +4,12 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = process.env.PORT || 10000; // Render default is 10000
+// Parse PORT - ensure it's a number
+const PORT = parseInt(process.env.PORT || '10000', 10); // Render default is 10000
+if (isNaN(PORT)) {
+  console.error('Invalid PORT environment variable:', process.env.PORT);
+  process.exit(1);
+}
 
 // Root directory (parent of server/)
 const rootDir = path.resolve(__dirname, '..');
@@ -390,8 +395,13 @@ function broadcast(message, excludeWs) {
 }
 
 // Start the server
+console.log(`Starting server on port ${PORT}, binding to 0.0.0.0...`);
+console.log(`PORT environment variable: ${process.env.PORT || 'not set (using default 10000)'}`);
+
 server.listen(PORT, '0.0.0.0', () => {
-  console.log(`✅ Server successfully bound to port ${PORT} on 0.0.0.0`);
+  const address = server.address();
+  console.log(`✅ Server successfully bound to ${address.address}:${address.port}`);
+  console.log(`✅ Listening on 0.0.0.0:${PORT}`);
   console.log(`Working directory: ${__dirname}`);
   console.log(`Root directory: ${rootDir}`);
   console.log(`Dist directory exists: ${fs.existsSync(path.join(rootDir, 'dist'))}`);
@@ -407,6 +417,9 @@ server.listen(PORT, '0.0.0.0', () => {
     : `${appName}.onrender.com`;
   console.log(`Frontend: ${protocol}://${domain}`);
   console.log(`WebSocket: ${wsProtocol}://${domain}`);
+  
+  // Keep process alive
+  console.log('Server is ready to accept connections');
 });
 
 // Add error handlers
