@@ -5,11 +5,14 @@ const fs = require('fs');
 const path = require('path');
 
 // Parse PORT - ensure it's a number
+// Render automatically provides PORT, don't override it
 const PORT = parseInt(process.env.PORT || '10000', 10); // Render default is 10000
-if (isNaN(PORT)) {
-  console.error('Invalid PORT environment variable:', process.env.PORT);
+if (isNaN(PORT) || PORT < 1 || PORT > 65535) {
+  console.error('❌ Invalid PORT environment variable:', process.env.PORT);
+  console.error('PORT must be a number between 1 and 65535');
   process.exit(1);
 }
+console.log(`PORT environment variable value: "${process.env.PORT}" (parsed as ${PORT})`);
 
 // Root directory (parent of server/)
 const rootDir = path.resolve(__dirname, '..');

@@ -5,9 +5,6 @@ services:
     plan: free
     buildCommand: npm install --include=dev && npm run build && cd server && npm install
     startCommand: cd server && node server.js
-    envVars:
-      - key: PORT
-        generateValue: true
     healthCheckPath: /health
     autoDeploy: true
 
