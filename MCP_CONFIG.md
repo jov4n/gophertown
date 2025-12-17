@@ -19,7 +19,7 @@ Cursor MCP server configurations are typically stored in:
     "render": {
       "url": "https://mcp.render.com/mcp",
       "headers": {
-        "Authorization": "Bearer rnd_TPZWcHYIZgcnlVuJoQQOiFYVYkTF"
+        "Authorization": "Bearer YOUR_RENDER_API_TOKEN_HERE"
       }
     }
   }
