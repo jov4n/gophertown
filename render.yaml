@@ -8,6 +8,6 @@ services:
     envVars:
       - key: PORT
         generateValue: true
-    healthCheckPath: /
+    healthCheckPath: /health
     autoDeploy: true
 

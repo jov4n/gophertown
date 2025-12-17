@@ -4,7 +4,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 10000; // Render default is 10000
 
 // Root directory (parent of server/)
 const rootDir = path.resolve(__dirname, '..');
@@ -37,6 +37,13 @@ const mimeTypes = {
 
 // Create HTTP server
 const server = http.createServer((req, res) => {
+  // Health check endpoint for Render (before other processing)
+  if (req.url === '/health') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ status: 'ok', port: PORT, timestamp: new Date().toISOString() }));
+    return;
+  }
+
   // WebSocket upgrade requests are handled by the WebSocket server
   // Don't process them here
 
@@ -384,7 +391,7 @@ function broadcast(message, excludeWs) {
 
 // Start the server
 server.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`✅ Server successfully bound to port ${PORT} on 0.0.0.0`);
   console.log(`Working directory: ${__dirname}`);
   console.log(`Root directory: ${rootDir}`);
   console.log(`Dist directory exists: ${fs.existsSync(path.join(rootDir, 'dist'))}`);
@@ -400,6 +407,25 @@ server.listen(PORT, '0.0.0.0', () => {
     : `${appName}.onrender.com`;
   console.log(`Frontend: ${protocol}://${domain}`);
   console.log(`WebSocket: ${wsProtocol}://${domain}`);
+});
+
+// Add error handlers
+server.on('error', (error) => {
+  console.error('❌ Server error:', error);
+  if (error.code === 'EADDRINUSE') {
+    console.error(`Port ${PORT} is already in use`);
+  }
+  process.exit(1);
+});
+
+process.on('uncaughtException', (error) => {
+  console.error('❌ Uncaught Exception:', error);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
+  process.exit(1);
 });
 
 // Keep server alive
