@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { MessageSquare, Send, User, X, Settings } from 'lucide-react';
 import { ASSETS, MAP_WIDTH, MAP_HEIGHT, MAP_IMAGE, WS_URL } from './constants';
-import { Player, ChatMessage } from './types';
+import { Player, ChatMessage, CollisionArea } from './types';
 import { Avatar } from './components/Avatar';
-import { CollisionArea } from './components/CollisionEditor';
 import { SpriteSelector } from './components/SpriteSelector';
 import { GameWebSocket } from './utils/websocket';
 

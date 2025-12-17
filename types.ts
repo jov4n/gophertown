@@ -14,18 +14,11 @@ export interface Player {
   color?: string; // Hex color for gopher body customization (e.g., "#FF6B6B")
 }
 
-export interface TileDef {
-  id: number;
+export interface CollisionArea {
   x: number;
   y: number;
-  label: string;
-  collision?: boolean;
-  tall?: boolean;
-}
-
-export enum GameMode {
-  EDIT = 'EDIT',
-  PLAY = 'PLAY'
+  width: number;
+  height: number;
 }
 
 export interface ChatMessage {
