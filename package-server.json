@@ -1,0 +1,16 @@
+{
+  "name": "townsbuilder-websocket-server",
+  "version": "1.0.0",
+  "description": "WebSocket server for TownsBuilder Social game",
+  "main": "server-example.js",
+  "scripts": {
+    "start": "node server-example.js"
+  },
+  "dependencies": {
+    "ws": "^8.14.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+
